@@ -33,7 +33,6 @@ $('#boton2').on('click', function() {
 });
 
 
-
 //$(document).ready(function(){
 //    $('.page1').on('click', function(){
 //        $('html,body').animate({scrollTop: $('#page1').offset().top}, 800);
