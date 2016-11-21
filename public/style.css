@@ -330,7 +330,7 @@ a, a:visited, a:link{
 
 .info-cont {
     width: 85vw;
-    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .filed-logo-small-col {
@@ -378,4 +378,27 @@ iframe {
     text-align: left;
     font-size: 4vh;
     color: red;
+}
+
+.separador {
+    padding-bottom: 80px;
+}
+
+.header {
+    position: fixed;
+    top: 0px;
+    z-index:9;
+    width: 100%;
+}
+
+.intro {
+    min-height: 1000px;
+}
+
+.separadorTop {
+    margin-top: 60px;
+}
+
+#section2 {
+    background-color: black;
 }
