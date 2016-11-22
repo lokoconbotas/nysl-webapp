@@ -1,11 +1,11 @@
-window.onorientationchange = function() { 
-        var orientation = window.orientation; 
-            switch(orientation) { 
-                case 0:
-                case 90:
-                case -90: window.location.reload(); 
-                break; } 
-    };
+//window.onorientationchange = function() { 
+//        var orientation = window.orientation; 
+//            switch(orientation) { 
+//                case 0:
+//                case 90:
+//                case -90: window.location.reload(); 
+//                break; } 
+//    };
 
 $('#page1').show();
     $('#page2').hide();
