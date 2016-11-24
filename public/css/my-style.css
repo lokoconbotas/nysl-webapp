@@ -1,0 +1,92 @@
+
+.escudos {
+    height: 30px;
+    margin: 3px;
+}
+
+.teamName {
+    display: flex;
+    align-items: center;
+}
+
+.teamName span {
+    margin-left: 10px;
+}
+
+.escudos-team {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tables {
+    display: flex;
+    justify-content: space-around;
+}
+
+caption {
+    margin-bottom: 10px;
+}
+
+.info-btn {
+    margin-bottom: 20px;
+}
+
+.row-buttons {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.item-merged {
+    margin-bottom: 10px;
+}
+
+.info-red-btn {
+    border: 1px solid #ff3b30;
+    color: #ff3b30;
+}
+
+.escudos2 {
+    height: 8em;
+}
+
+.escudos-mini {
+    height: 20px;
+}
+
+.btn-info-green {
+    border: 1px solid green;
+    color: green;
+}
+
+.demo-card-header-pic .card-header {
+    height: 30vw;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../media/splash-screen.png);
+  }
+iframe {
+    width: 90%;    
+    
+}
+
+.map-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-logo {
+    height: 10em;
+    filter: drop-shadow(0px 10px 5px black)
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.titulo-centrado {
+    text-align: center;
+}

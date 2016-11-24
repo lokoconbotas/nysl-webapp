@@ -1,725 +1,246 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-title" content="NYSL">
-        <meta name="apple-mobile-web-app-capable" content="yes"> 
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-transparent">
+        <title>NYSL WebApp</title>
 
-
-        <link rel="apple-touch-icon" href="media/img/icons/icon1.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="media/img/icons/icon2.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="media/img/icons/icon3.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="media/img/icons/icon4.png">
-        <title>Home</title>
-
-        <!-- STARTUP IMAGES -->
-
-        <!-- iPad retina portrait startup image -->
-        <link href="https://placehold.it/1536x2008" media="(device-width: 768px) and (device-height: 1024px)
-                                                           and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" rel="apple-touch-startup-image">
-        <!-- iPad retina landscape startup image -->
-        <link href="https://placehold.it/1496x2048" media="(device-width: 768px) and (device-height: 1024px)
-                                                           and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" rel="apple-touch-startup-image">
-        <!-- iPad non-retina portrait startup image -->
-        <link href="https://placehold.it/768x1004" media="(device-width: 768px) and (device-height: 1024px)
-                                                          and (-webkit-device-pixel-ratio: 1) and (orientation: portrait)" rel="apple-touch-startup-image">
-        <!-- iPad non-retina landscape startup image -->
-        <link href="https://placehold.it/748x1024" media="(device-width: 768px) and (device-height: 1024px)
-                                                          and (-webkit-device-pixel-ratio: 1) and (orientation: landscape)" rel="apple-touch-startup-image">
-        <!-- iPhone 6 Plus portrait startup image -->
-        <link href="https://placehold.it/1242x2148" media="(device-width: 414px) and (device-height: 736px)
-                                                           and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" rel="apple-touch-startup-image">
-        <!-- iPhone 6 Plus landscape startup image -->
-        <link href="https://placehold.it/1182x2208" media="(device-width: 414px) and (device-height: 736px)
-                                                           and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" rel="apple-touch-startup-image">
-        <!-- iPhone 6 startup image -->
-        <link href="https://placehold.it/750x1294" media="(device-width: 375px) and (device-height: 667px)
-                                                          and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
-        <!-- iPhone 5 startup image -->
-        <link href="https://placehold.it/640x1096" media="(device-width: 320px) and (device-height: 568px)
-                                                          and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
-        <!-- iPhone < 5 retina startup image -->
-        <link href="https://placehold.it/640x920" media="(device-width: 320px) and (device-height: 480px)
-                                                         and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
-        <!-- iPhone < 5 non-retina startup image -->
-        <link href="https://placehold.it/320x460" media="(device-width: 320px) and (device-height: 480px)
-                                                         and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-        <link rel="stylesheet" type="text/css" href="media/js/fullPage.js-master/jquery.fullPage.css" />
-        <link rel="stylesheet" type="text/css" href="media/js/fullPage.js-master/examples/examples.css" />
-        <link rel="stylesheet" href="style.css">
-
-
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
-
-
+        <!-- Path to Framework7 Library CSS-->
+        <link rel="stylesheet" href="css/framework7.ios.min.css">
+        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="css/my-app.css">
+        <link rel="stylesheet" href="css/my-style.css">
     </head>
     <body>
-
-        <div class="header container-fluid">
-            <div class="row title-bar">
-                <div class="tittle-col col-xs-2"><img class="logo" src="media/img/nysl_logo.png" alt=""></div>
-                <div class="logo-col col-xs-8"><p class="title">NYSL WEB APP</p></div>
-                <div class="col-xs-2"></div>
+        <!-- Status bar overlay for fullscreen mode-->
+        <div class="statusbar-overlay"></div>
+        <!-- Right panel with cover effect-->
+        <div class="panel panel-right panel-reveal">
+            <div class="content-block">
+                <p>Right panel content goes here</p>
             </div>
         </div>
+        <!-- Views-->
+        <div class="views">
+            <!-- Put panels-overlay and left-panel with view inside of views-->
+            <!-- Panels overlay-->
+            <div class="panel-overlay"></div>
+            <!-- Left panel with reveal effect-->
+            <div class="panel panel-left panel-cover">
+                <!-- Left view-->
+                <div class="view view-left navbar-through">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="left"></div>
+                            <div class="center sliding">Menu</div>
+                            <div class="right"></div>
+                        </div>
+                    </div>
+                    <div class="pages">
+                        <div data-page="index-left" class="page">
+                            <div class="page-content">
 
-        <div id="fullpage">
-            <!--Page1-->
-            <div class="section active" id="section0">
-                <div class="intro">
+                                <div class="content-block-title">Next 5 games</div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li><a href="about.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content item-merged">
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                        </div>
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div></a></li>
 
-                    <div class="separadorTop">&nbsp;</div>
+                                        <li><a href="about.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content item-merged">
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                        </div>
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div></a></li>
 
-                    <h2>MATCHES</h2>
+                                        <li><a href="about.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content item-merged">
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                        </div>
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div></a></li>
 
+                                        <li><a href="about.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content item-merged">
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                        </div>
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div></a></li>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="all-matches col-xs-6">
+                                        <li><a href="about.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content item-merged">
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                        </div>
+                                                        <div class="teamName">
+                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div></a></li>
 
-                                <div class="days-cont">
-                                    <div class="days row">Today</div>
+                                    </ul>
                                 </div>
 
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U1</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U4</div>
-                                    </div>
-                                    <div class="teams-row row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_03.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_05.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">AJ Katzenmaier <span>&#10095</span></div>
-                                    </div>
+
+
+                                <div class="content-block-title">Direct Links</div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li><a href="about.html" data-view=".view-main" class="item-link close-panel">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Teams</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="#" data-view=".view-main" class="item-link close-panel">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Matches</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="#" data-view=".view-main" class="back item-link close-panel">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Calendar</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="fields.html" data-view=".view-main" class="back item-link close-panel">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Fields</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="signup.html" data-view=".view-main" class="back item-link close-panel open-login-screen">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Sign Up</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="#" data-view=".view-main" class="back item-link close-panel">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">TOS</div>
+                                                </div>
+                                            </div></a></li>
+
+                                    </ul>
                                 </div>
 
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U3</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U2</div>
-                                    </div>
-                                    <div class="teams-row2 row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_10.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_12.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">1:00 pm</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">Greenbay<span>&#10095</span></div>
-                                    </div>
+                                <div class="content-block-title"></div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li><a href="left-page-1.html" class="item-link">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">About Us</div>
+                                                </div>
+                                            </div></a></li>
+                                        <li><a href="left-page-2.html" data-view=".view-main" class="item-link">
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Contact</div>
+                                                </div>
+                                            </div></a></li>
+                                    </ul>
                                 </div>
 
-                                <div class="days-cont">
-                                    <div class="days row">Tomorrow</div>
-                                </div>
-
-
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U5</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U6</div>
-                                    </div>
-                                    <div class="teams-row row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_05.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_10.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">Howard A Yeager<span>&#10095</span></div>
-                                    </div>
-                                </div>
-
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U1</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U4</div>
-                                    </div>
-                                    <div class="teams-row2 row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_12.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_03.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">AJ Katzenmaier<span>&#10095</span></div>
-                                    </div>
-                                </div>
-
-                                <div class="days-cont">
-                                    <div class="days row">9/10</div>
-                                </div>
-
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U1</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U4</div>
-                                    </div>
-                                    <div class="teams-row row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_10.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_05.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">AJ Katzenmaier<span>&#10095</span></div>
-                                    </div>
-                                </div>
-
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U1</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U4</div>
-                                    </div>
-                                    <div class="teams-row2 row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_03.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_10.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">AJ Katzenmaier<span>&#10095</span></div>
-                                    </div>
-                                </div>
-
-                                <div class="match-cont container">
-                                    <div data-toggle="collapse" data-target="#panel" class="match-row row">
-                                        <div class="names col-xs-5">U1</div>
-                                        <div class="col-xs-2">-</div>
-                                        <div class="names col-xs-5">U4</div>
-                                    </div>
-                                    <div class="teams-row row">
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_05.png" alt=""><span>&#10095</span></div>
-                                        <div class="center-col teams-col col-xs-2">VS</div>
-                                        <div class="teams-col col-xs-5"><img class="logos" src="media/img/escudos/escudo_03.png" alt=""><span>&#10095</span></div>
-                                    </div>
-                                    <div class="field-row row">
-                                        <div class="date col-xs-5">09:30 am</div>
-                                        <div class="col-xs-2">at</div>
-                                        <div class="field col-xs-5">AJ Katzenmaier<span>&#10095</span></div>
-                                    </div>
-                                </div> 
-
-
-
-                            </div>
-
-
-                            <div class="results col-xs-6 col-sm-6 col-md-6">
-                                <div class="days-cont">
-                                    <div class="days row">Results</div>
-                                </div>
-                                <div id="panel" class="result-cont container">
+                                <div class="content-block">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12">Data</div>
-                                    </div>
-                                    <div class="escudos-row row">
-                                        <div class="escudos-col col-sm-5"><img class="logos1" src="media/img/escudos/escudo_03.png" alt=""></div>
-                                        <div class="escudos-col col-sm-2">VS</div>
-                                        <div class="escudos-col col-sm-5"><img class="logos1" src="media/img/escudos/escudo_10.png" alt=""></div>
-                                    </div>
-                                    <div class="fecha-row row">Hora</div>
-                                    <div class="campo-row row">
-                                        <div class="col sm-6">Campo</div>
-                                        <div class="col sm-6">Nombre Campo</div>
+                                        <div class="col-100"><a href="#" class="button info-btn">Email</a></div>
+                                        <div class="col-100"><a href="#" class="button info-btn">Phone</a></div>
+                                        <div class="col-100"><a href="#" class="button info-btn info-red-btn">Donate</a></div>
                                     </div>
                                 </div>
-                                <div>Click a match to show details...</div>
-
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-
-
-
-            <!--Page2-->
-            <div class="section" id="section1">
-                <div class="intro">
-
-                    <div class="slide" id="slide1" data-anchor="slide1">
-                        <div class="separadorTop">&nbsp;</div>
-                        <h2>TEAMS</h2>
-
-                        <div class="info-team-cont container">
-                            <div class="row-team-info1 row">
-                                <div class="filed-logo-small-col3 col-xs-4"><img class="field-logo-small" src="media/img/escudos/escudo_03.png" alt=""></div>
-                            </div>
-                            <div class="row-team-data2 row">
-                                <div class="col-xs-12">Team Name</div>
-                            </div>
-                            <div class="row-team-data1 container">
-                                <div class="row">
-                                    <div class="col-xs-12">Home Stadium:</div>
-                                    <div class="col-xs-12">Stadium A</div>
-                                    <div class="col-xs-6">Last Games</div>
-                                    <div class="col-xs-6">Next Games</div>
-                                </div>
-                                <div class="row">
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Result</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Date</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
+            <!-- Right view, it is main view-->
+            <div class="view view-main navbar-through">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="center sliding">NYSL Web App</div>
+                        <div class="right"><a href="#" data-panel="left" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>
                     </div>
-
-
-                    <div class="slide" id="slide2" data-anchor="slide2">
-                        <div class="separadorTop">&nbsp;</div>
-                        <h2>TEAMS</h2>
-
-                        <div class="info-team-cont container">
-                            <div class="row-team-info1 row">
-                                <div class="filed-logo-small-col2 col-xs-4"></div>
-                                <div class="filed-logo-small-col3 col-xs-4"><img class="field-logo-small" src="media/img/escudos/escudo_05.png" alt=""></div>
-                                <div class="filed-logo-small-col2 col-xs-4"></div>
-                            </div>
-                            <div class="row-team-data2 row">
-                                <div class="col-xs-12">Team Name</div>
-                            </div>
-                            <div class="row-team-data1 container">
-                                <div class="row">
-                                    <div class="col-xs-12">Home Stadium:</div>
-                                    <div class="col-xs-12">Stadium A</div>
-                                    <div class="col-xs-6">Last Games</div>
-                                    <div class="col-xs-6">Next Games</div>
-                                </div>
-                                <div class="row">
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Result</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Date</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="slide" id="slide3" data-anchor="slide3">                
-                        <div class="separadorTop">&nbsp;</div>
-                        <h2>TEAMS</h2>
-
-                        <div class="info-team-cont container">
-                            <div class="row-team-info1 row">
-                                <div class="filed-logo-small-col2 col-xs-4"></div>
-                                <div class="filed-logo-small-col3 col-xs-4"><img class="field-logo-small" src="media/img/escudos/escudo_10.png" alt=""></div>
-                                <div class="filed-logo-small-col2 col-xs-4"></div>
-                            </div>
-                            <div class="row-team-data2 row">
-                                <div class="col-xs-12">Team Name</div>
-                            </div>
-                            <div class="row-team-data1 container">
-                                <div class="row">
-                                    <div class="col-xs-12">Home Stadium:</div>
-                                    <div class="col-xs-12">Stadium A</div>
-                                    <div class="col-xs-6">Last Games</div>
-                                    <div class="col-xs-6">Next Games</div>
-                                </div>
-                                <div class="row">
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Result</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>Win</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="lastgames-col col-xs-6">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <table class="table">
-                                                    <thead>
-                                                        <th>Team</th>
-                                                        <th>Date</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>T1</td>
-                                                            <td>9/10</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
+                <!-- Pages-->
+                <div class="pages">
+                    <!-- Page, data-page contains page name-->
+                    <div data-page="index-1" class="page">
+                        <!-- Scrollable page content-->
+                        <div class="page-content">
 
+                            <div class="logo-container">
+                                <img class="home-logo" src="media/nysl_logo.png" alt="">
+                            </div>
 
+                            <div class="titulo-centrado content-block-title">Welcome to our Web App</div>
+                            <div class="titulo-centrado content-block">
+                                <p>Thanks to visit our new App.</p>
+                                <p>Here you can find almost all the information about our Soccer League. Fields, Next Games, Teams info, the last results of your favoirite Teams and a huge number of ways no contact us if you have any problem or simply if you want to send us some feedback.</p>
+                                <p>Our last inclusion is a new chat system that offers to you a way to post some comments in an specific Game Page. Only need to Sign-Up in our Data-Base to start to chat. If you only would like to read messages, it's not necesary.</p>
+                                <p>Enjoy!</p>
+                            </div>
 
-
-            <!--Page3-->
-            <div class="section" id="section2">
-                <div class="intro">
-
-                    <div class="separadorTop">&nbsp;</div>
-
-                    <h2>FIELDS</h2>
-                    <div data-toggle="collapse" data-target="#demo" class="info-cont container">
-                        <div class="info-row row">
-                            <div class="info-col col-xs-12">
-                                <div class="row-info1 row">
-                                    <div class="filed-logo-small-col col-xs-3"><img class="field-logo-small" src="media/img/icons/field-small.png" alt=""></div>
-                                    <div class="filed-logo-small-col col-xs-9">Stadium Name</div>
+                            <div class="titulo-centrado content-block-title">Start Here</div>
+                            <div class="content-block">
+                                <div class="row">
+                                    <div class="col-100"><a href="#" data-panel="left" class="link open-panel button info-btn">Side Menu<i class="button info-btn"></i></a></div>
+                                    <div class="col-100"><a href="left-page-2.html" class="button info-btn">Contact-Us</a></div>
+                                    <div class="col-100"><a href="signup.html" class="button info-btn open-login-screen">Sign-Up</a></div>
                                 </div>
-                                <button type="button" class="row-info3 btn btn-default row">See location info<span>&#8681</span></button>
                             </div>
+
+
+
+
                         </div>
                     </div>
-                    <!--        Desplegable con id unico-->
-                    <div id="demo" class="collapse">
-                        <div class="match-map-cont container">
-                            <div class="map-row row">
-                                <div class="field-map col-xs-12"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6647143851424!2d-87.63116448455818!3d41.90006727922053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34de364cd27%3A0x6177e5a4e42bdc08!2s24+W+Walton+St%2C+Chicago%2C+IL+60610!5e0!3m2!1ses!2sus!4v1479471468260"></iframe></div>
-                            </div>
-                            <div class="field-row row">
-                                <div class="close-field col-xs-5" data-toggle="collapse" data-target="#demo">&#10006</div>
-                                <div class="col-xs-2"></div>
-                                <div class="field col-xs-5"><a class="field" href="https://maps.google.com/?q=46.860191,3.779297">Open in Maps<span>&#10095</span></div></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div data-toggle="collapse" data-target="#demo2" class="info-cont container">
-                        <div class="info-row row">
-                            <div class="info-col col-xs-12">
-                                <div class="row-info1 row">
-                                    <div class="filed-logo-small-col col-xs-3"><img class="field-logo-small" src="media/img/icons/field-small.png" alt=""></div>
-                                    <div class="filed-logo-small-col col-xs-9">Stadium Name</div>
-                                </div>
-                                <button type="button" class="row-info3 btn btn-default row">See location info<span>&#8681</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--        Desplegable con id unico-->
-                    <div id="demo2" class="collapse">
-                        <div class="match-map-cont container">
-                            <div class="map-row row">
-                                <div class="field-map col-xs-12"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6647143851424!2d-87.63116448455818!3d41.90006727922053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34de364cd27%3A0x6177e5a4e42bdc08!2s24+W+Walton+St%2C+Chicago%2C+IL+60610!5e0!3m2!1ses!2sus!4v1479471468260"></iframe></div>
-                            </div>
-                            <div class="field-row row">
-                                <div class="close-field col-xs-5" data-toggle="collapse" data-target="#demo2">&#10006</div>
-                                <div class="col-xs-2"></div>
-                                <div class="field col-xs-5"><a class="field" href="https://maps.google.com/?q=46.860191,3.779297">Open in Maps<span>&#10095</span></div></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div data-toggle="collapse" data-target="#demo3" class="info-cont container">
-                        <div class="info-row row">
-                            <div class="info-col col-xs-12">
-                                <div class="row-info1 row">
-                                    <div class="filed-logo-small-col col-xs-3"><img class="field-logo-small" src="media/img/icons/field-small.png" alt=""></div>
-                                    <div class="filed-logo-small-col col-xs-9">Stadium Name</div>
-                                </div>
-                                <button type="button" class="row-info3 btn btn-default row">See location info<span>&#8681</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--        Desplegable con id unico-->
-                    <div id="demo3" class="collapse">
-                        <div class="match-map-cont container">
-                            <div class="map-row row">
-                                <div class="field-map col-xs-12"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6647143851424!2d-87.63116448455818!3d41.90006727922053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34de364cd27%3A0x6177e5a4e42bdc08!2s24+W+Walton+St%2C+Chicago%2C+IL+60610!5e0!3m2!1ses!2sus!4v1479471468260"></iframe></div>
-                            </div>
-                            <div class="field-row row">
-                                <div class="close-field col-xs-5" data-toggle="collapse" data-target="#demo3">&#10006</div>
-                                <div class="col-xs-2"></div>
-                                <div class="field col-xs-5"><a class="field" href="https://maps.google.com/?q=46.860191,3.779297">Open in Maps<span>&#10095</span></div></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div data-toggle="collapse" data-target="#demo4" class="info-cont container">
-                        <div class="info-row row">
-                            <div class="info-col col-xs-12">
-                                <div class="row-info1 row">
-                                    <div class="filed-logo-small-col col-xs-3"><img class="field-logo-small" src="media/img/icons/field-small.png" alt=""></div>
-                                    <div class="filed-logo-small-col col-xs-9">Stadium Name</div>
-                                </div>
-                                <button type="button" class="row-info3 btn btn-default row">See location info<span>&#8681</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--        Desplegable con id unico-->
-                    <div id="demo4" class="collapse">
-                        <div class="match-map-cont container">
-                            <div class="map-row row">
-                                <div class="field-map col-xs-12"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6647143851424!2d-87.63116448455818!3d41.90006727922053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fd34de364cd27%3A0x6177e5a4e42bdc08!2s24+W+Walton+St%2C+Chicago%2C+IL+60610!5e0!3m2!1ses!2sus!4v1479471468260"></iframe></div>
-                            </div>
-                            <div class="field-row row">
-                                <div class="close-field col-xs-5" data-toggle="collapse" data-target="#demo4">&#10006</div>
-                                <div class="col-xs-2"></div>
-                                <div class="field col-xs-5"><a class="field" href="https://maps.google.com/?q=46.860191,3.779297">Open in Maps<span>&#10095</span></div></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-        <footermenu id="menu" class="footer-cont container-fluid">
-            <nav class="menu-elements">
-                <a data-menuanchor="firstPage" class="icon-div" href="#firstPage"><div id="icon1" class="icon-div"><img class="icons" src="media/img/icons/calendar.svg" alt=""></div></a>
-                <a data-menuanchor="secondPage" href="#secondPage" class="icon-div"><div id="icon2" class="icon-div"><img class="icons" src="media/img/icons/team.png" alt=""></div></a>
-                <a data-menuanchor="3rdPage" id="boton2" href="#3rdPage" class="icon-div"><div id="icon3" class="icon-div"><img class="icons" src="media/img/icons/field.png" alt=""></div></a>
-                <a href="#" class="icon-div"><div id="icon4" class="icon-div"><img class="icons" src="media/img/icons/chat.svg" alt=""></div></a>
-            </nav>
-        </footermenu>
-
-
-
-        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyDA189VCFBVt96yWBTdSGPdqKN3ZrVJtWs",
-                authDomain: "nysl-web-app.firebaseapp.com",
-                databaseURL: "https://nysl-web-app.firebaseio.com",
-                storageBucket: "nysl-web-app.appspot.com",
-                messagingSenderId: "847568314419"
-            };
-            firebase.initializeApp(config);
-        </script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-        <script type="text/javascript" src="media/js/fullPage.js-master/vendors/scrolloverflow.js"></script>
-
-        <script type="text/javascript" src="media/js/fullPage.js-master/jquery.fullPage.js"></script>
-        <script type="text/javascript" src="media/js/fullPage.js-master/examples/examples.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="media/js/open-links.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#fullpage').fullpage({
-                    anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage'],
-                    sectionsColor: ['#174e38', '#13744D', '#125c3e'],
-                    scrollOverflow: true,
-                    scrollOverflowOptions: null,
-                    menu: '#menu',
-                    verticalCentered: false,
-                    paddingTop: '0px',
-                    paddingBottom: '0px',
-                    touchSensitivity: 35,
-                    loopBottom: false,
-                    scrollBar: false,
-                    zoom: false,
-                    slidesNavigation: true,
-                    css3: true
-
-                });
-            });
-        </script>
+        <!-- Path to Framework7 Library JS-->
+        <script type="text/javascript" src="js/framework7.min.js"></script>
+        <!-- Path to your app js-->
+        <script type="text/javascript" src="js/my-app.js"></script>
     </body>
 </html>
