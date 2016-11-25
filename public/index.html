@@ -4,211 +4,107 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-transparent">
-        <title>NYSL WebApp</title>
-
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <title>My App</title>
         <!-- Path to Framework7 Library CSS-->
         <link rel="stylesheet" href="css/framework7.ios.min.css">
-        <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
+        <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
         <!-- Path to your custom app styles-->
         <link rel="stylesheet" href="css/my-app.css">
+        <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/my-style.css">
+
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyDA189VCFBVt96yWBTdSGPdqKN3ZrVJtWs",
+                authDomain: "nysl-web-app.firebaseapp.com",
+                databaseURL: "https://nysl-web-app.firebaseio.com",
+                storageBucket: "nysl-web-app.appspot.com",
+                messagingSenderId: "847568314419"
+            };
+            firebase.initializeApp(config);
+        </script>
+
     </head>
     <body>
         <!-- Status bar overlay for fullscreen mode-->
         <div class="statusbar-overlay"></div>
+        <!-- Panels overlay-->
+        <div class="panel-overlay"></div>
+        <!-- Left panel with reveal effect-->
+        <div class="panel panel-left panel-reveal">
+            <div class="content-block">
+                <p>Left panel content goes here</p>
+                <a href="#teams" class="item-link">
+                    <div class="item-content">
+                        <div class="item-inner"> 
+                            <div class="item-title">Teams</div>
+                        </div>
+                    </div></a>
+            </div>
+        </div>
         <!-- Right panel with cover effect-->
-        <div class="panel panel-right panel-reveal">
+        <div class="panel panel-right panel-cover">
             <div class="content-block">
                 <p>Right panel content goes here</p>
             </div>
         </div>
         <!-- Views-->
         <div class="views">
-            <!-- Put panels-overlay and left-panel with view inside of views-->
-            <!-- Panels overlay-->
-            <div class="panel-overlay"></div>
-            <!-- Left panel with reveal effect-->
-            <div class="panel panel-left panel-cover">
-                <!-- Left view-->
-                <div class="view view-left navbar-through">
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            <div class="left"></div>
-                            <div class="center sliding">Menu</div>
-                            <div class="right"></div>
-                        </div>
-                    </div>
-                    <div class="pages">
-                        <div data-page="index-left" class="page">
-                            <div class="page-content">
-
-                                <div class="content-block-title">Next 5 games</div>
-                                <div class="list-block">
-                                    <ul>
-                                        <li><a href="about.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content item-merged">
-                                                <div class="item-inner">
-                                                    <div class="item-title">
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
-                                                        </div>
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></a></li>
-
-                                        <li><a href="about.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content item-merged">
-                                                <div class="item-inner">
-                                                    <div class="item-title">
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
-                                                        </div>
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></a></li>
-
-                                        <li><a href="about.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content item-merged">
-                                                <div class="item-inner">
-                                                    <div class="item-title">
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
-                                                        </div>
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></a></li>
-
-                                        <li><a href="about.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content item-merged">
-                                                <div class="item-inner">
-                                                    <div class="item-title">
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
-                                                        </div>
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></a></li>
-
-                                        <li><a href="about.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content item-merged">
-                                                <div class="item-inner">
-                                                    <div class="item-title">
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
-                                                        </div>
-                                                        <div class="teamName">
-                                                            <img class="escudos-mini" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div></a></li>
-
-                                    </ul>
-                                </div>
-
-
-
-                                <div class="content-block-title">Direct Links</div>
-                                <div class="list-block">
-                                    <ul>
-                                        <li><a href="about.html" data-view=".view-main" class="item-link close-panel">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Teams</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="#" data-view=".view-main" class="item-link close-panel">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Matches</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="#" data-view=".view-main" class="back item-link close-panel">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Calendar</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="fields.html" data-view=".view-main" class="back item-link close-panel">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Fields</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="signup.html" data-view=".view-main" class="back item-link close-panel open-login-screen">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Sign Up</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="#" data-view=".view-main" class="back item-link close-panel">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">TOS</div>
-                                                </div>
-                                            </div></a></li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="content-block-title"></div>
-                                <div class="list-block">
-                                    <ul>
-                                        <li><a href="left-page-1.html" class="item-link">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">About Us</div>
-                                                </div>
-                                            </div></a></li>
-                                        <li><a href="left-page-2.html" data-view=".view-main" class="item-link">
-                                            <div class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Contact</div>
-                                                </div>
-                                            </div></a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="content-block">
-                                    <div class="row">
-                                        <div class="col-100"><a href="#" class="button info-btn">Email</a></div>
-                                        <div class="col-100"><a href="#" class="button info-btn">Phone</a></div>
-                                        <div class="col-100"><a href="#" class="button info-btn info-red-btn">Donate</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Right view, it is main view-->
-            <div class="view view-main navbar-through">
+            <!-- Your main view, should have "view-main" class-->
+            <div class="view view-main">
+                <!-- Top Navbar-->
                 <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="center sliding">NYSL Web App</div>
-                        <div class="right"><a href="#" data-panel="left" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>
+                    <!-- Navbar inner for Index page-->
+                    <div data-page="index" class="navbar-inner">
+                        <!-- We have home navbar without left link-->
+                        <div class="center sliding">Nysl Web App</div>
+                        <div class="right">
+                            <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+                        </div>
                     </div>
+
+
+
+
+
+                    <!-- Aquí se configuran las navbar de cada página-->
+
+                    <!-- Navbar inner for About page-->
+                    <div data-page="chat" class="navbar-inner cached">
+                        <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                        <div class="center sliding">Chat Page</div>
+                    </div>
+                    <!-- Navbar inner for Services page-->
+                    <div data-page="fields" class="navbar-inner cached">
+                        <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                        <div class="center sliding">Fields</div>
+                    </div>
+                    <!-- Navbar inner for Matches page-->
+                    <div data-page="matches" class="navbar-inner cached">
+                        <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                        <div class="center sliding">Matches</div>
+                    </div>
+
                 </div>
-                <!-- Pages-->
-                <div class="pages">
-                    <!-- Page, data-page contains page name-->
-                    <div data-page="index-1" class="page">
+
+
+                <!--Cada página va en su bloque individual-->
+                <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+                <div class="pages navbar-through toolbar-through">
+
+
+                    <!-- Index Page-->
+                    <div data-page="index" class="page">
                         <!-- Scrollable page content-->
                         <div class="page-content">
-
                             <div class="logo-container">
                                 <img class="home-logo" src="media/nysl_logo.png" alt="">
                             </div>
@@ -226,24 +122,260 @@
                                 <div class="row">
                                     <div class="col-100"><a href="#" data-panel="left" class="link open-panel button info-btn">Side Menu<i class="button info-btn"></i></a></div>
                                     <div class="col-100"><a href="index2.html" class="button info-btn">Contact-Us</a></div>
-                                    <div class="col-100"><a href="signup.html" class="button info-btn open-login-screen">Sign-Up</a></div>
+                                    <div class="col-100"><a href="#chat" class="button info-btn open-login-screen">Sign-Up</a></div>
 
                                 </div>
                             </div>
 
+                            <div class="content-block-title">You can do many thigs from here</div>
+                            <div class="list-block">
+                                <ul>
+                                    <li><a href="#chat" class="item-link">
+                                        <div class="item-content">
+                                            <div class="item-inner"> 
+                                                <div class="item-title">Chat Box</div>
+                                            </div>
+                                        </div></a></li>
+                                    <li><a href="#fields" class="item-link">
+                                        <div class="item-content"> 
+                                            <div class="item-inner">
+                                                <div class="item-title">Fields</div>
+                                            </div>
+                                        </div></a></li>
+                                    <li><a href="#matches" class="item-link">
+                                        <div class="item-content"> 
+                                            <div class="item-inner">
+                                                <div class="item-title">Matches</div>
+                                            </div>
+                                        </div></a></li>
+                                    <li><a href="#form" class="item-link">
+                                        <div class="item-content"> 
+                                            <div class="item-inner">
+                                                <div class="item-title">Sign Up</div>
+                                            </div>
+                                        </div></a></li>
+                                    <li><a href="#form" class="item-link">
+                                        <div class="item-content"> 
+                                            <div class="item-inner">
+                                                <div class="item-title">TOS</div>
+                                            </div>
+                                        </div></a></li>
+                                </ul>
+                            </div>
+                            <!--
+<div class="content-block-title">Side panels</div>
+<div class="content-block">
+<div class="row">
+<div class="col-50"><a href="#" data-panel="left" class="button open-panel">Left Panel</a></div>
+<div class="col-50"><a href="#" data-panel="right" class="button open-panel">Right Panel</a></div>
+</div>
+</div>
+-->
+                        </div>
+                    </div>
+                    <!-- Chat Page-->
+                    <div data-page="chat" class="page cached">
+                        <div class="page-content">
 
+                                <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+                                    <!-- Header section containing logo -->
+                                    <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+                                        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+                                            
+                                            <div id="user-container">
+                                                <div hidden id="user-pic"></div>
+                                                <div hidden id="user-name"></div>
+                                                <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                                    Sign-out
+                                                </button>
+                                                <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                                    <i class="material-icons">account_circle</i>Sign-in with Google
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <main class="mdl-layout__content mdl-color--grey-100">
+                                        <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+
+                                            <!-- Messages container -->
+                                            <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+                                                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                                    <div id="messages">
+                                                        <span id="message-filler"></span>
+                                                    </div>
+                                                    <form id="message-form" action="#">
+                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                            <input class="mdl-textfield__input" type="text" id="message">
+                                                            <label class="mdl-textfield__label" for="message">Message...</label>
+                                                        </div>
+                                                        <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                                            Send
+                                                        </button>
+                                                    </form>
+                                                    <form id="image-form" action="#">
+                                                        <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+                                                        <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+                                                            <i class="material-icons">image</i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                                                <div class="mdl-snackbar__text"></div>
+                                                <button class="mdl-snackbar__action" type="button"></button>
+                                            </div>
+
+                                        </div>
+                                    </main>
+                                </div> 
+
+                        </div>
+                    </div>
+                    <!-- Services Page-->
+                    <div data-page="fields" class="page cached">
+                        <div class="page-content">
+                            <div class="content-block">
+
+                                <div class="card demo-card-header-pic">
+                                    <div style="background-image: url(../media/estadio/estadio3.jpg)" valign="bottom" class="card-header color-white no-border">STADIUM 1</div>
+                                    <div class="card-content">
+                                        <div class="card-content-inner">
+                                        </div>
+                                    </div>
+                                    <div class="list-block accordion-list">
+                                        <div class="accordion-item">
+                                            <a href="" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">More Details</div>
+                                                </div>
+                                            </a>
+
+                                            <div class="accordion-item-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card demo-card-header-pic">
+                                    <div style="background-image: url(../media/estadio/estadio4.png)" valign="bottom" class="card-header color-white no-border">STADIUM NAME 1</div>
+                                    <div class="card-content">
+                                        <div class="card-content-inner">
+                                            <p>Avenue 45, 12345, CH</p>
+                                        </div>
+                                    </div>
+                                    <div class="list-block accordion-list">
+                                        <div class="accordion-item">
+                                            <a href="" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Show Map</div>
+                                                </div>
+                                            </a> 
+                                            <div class="accordion-item-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Matches Page-->
+                    <div data-page="matches" class="page cached">
+                        <div class="page-content">
+                            <div class="list-block">
+                                <ul>
+                                    <li><a href="#fields" data-view=".view-main" class="item-link">
+                                        <div class="item-content item-merged">
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                    </div>
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></a></li>
+
+                                    <li><a href="about.html" data-view=".view-main" class="item-link">
+                                        <div class="item-content item-merged">
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                    </div>
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></a></li>
+
+                                    <li><a href="about.html" data-view=".view-main" class="item-link">
+                                        <div class="item-content item-merged">
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                    </div>
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></a></li>
+
+                                    <li><a href="about.html" data-view=".view-main" class="item-link">
+                                        <div class="item-content item-merged">
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                    </div>
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></a></li>
+
+                                    <li><a href="about.html" data-view=".view-main" class="item-link">
+                                        <div class="item-content item-merged">
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_03.png" alt=""><span>Home</span>
+                                                    </div>
+                                                    <div class="teamName">
+                                                        <img class="escudos" src="media/escudos/escudo_05.png" alt=""><span>Away</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></a></li>
+
+                                </ul>
+                            </div>
 
 
                         </div>
                     </div>
                 </div>
+                <!-- Bottom Toolbar-->
+                <div class="toolbar">
+                    <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+                </div>
             </div>
         </div>
-
-        <!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
         <!-- Path to Framework7 Library JS-->
         <script type="text/javascript" src="js/framework7.min.js"></script>
         <!-- Path to your app js-->
         <script type="text/javascript" src="js/my-app.js"></script>
+        <script src="js/main.js"></script>
+
     </body>
 </html>

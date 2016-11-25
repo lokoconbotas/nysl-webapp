@@ -4864,6 +4864,7 @@ html.pixel-ratio-3 .picker-modal.smart-select-picker .toolbar:after {
 .panel.panel-left.panel-cover {
   z-index: 6000;
   left: -260px;
+    
 }
 .panel.panel-left.panel-reveal {
   left: 0;

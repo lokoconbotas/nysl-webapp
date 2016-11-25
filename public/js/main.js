@@ -15,432 +15,283 @@
  */
 'use strict';
 
-// Shortcuts to DOM Elements.
-var messageForm = document.getElementById('message-form');
-var messageInput = document.getElementById('new-post-message');
-var titleInput = document.getElementById('new-post-title');
-var signInButton = document.getElementById('sign-in-button');
-var signOutButton = document.getElementById('sign-out-button');
-var splashPage = document.getElementById('page-splash');
-var addPost = document.getElementById('add-post');
-var addButton = document.getElementById('add');
-var recentPostsSection = document.getElementById('recent-posts-list');
-var userPostsSection = document.getElementById('user-posts-list');
-var topUserPostsSection = document.getElementById('top-user-posts-list');
-var recentMenuButton = document.getElementById('menu-recent');
-var myPostsMenuButton = document.getElementById('menu-my-posts');
-var myTopPostsMenuButton = document.getElementById('menu-my-top-posts');
-var listeningFirebaseRefs = [];
+// Initializes FriendlyChat.
+function FriendlyChat() {
+  this.checkSetup();
 
-/**
- * Saves a new post to the Firebase DB.
- */
-// [START write_fan_out]
-function writeNewPost(uid, username, picture, title, body) {
-  // A post entry.
-  var postData = {
-    author: username,
-    uid: uid,
-    body: body,
-    title: title,
-    starCount: 0,
-    authorPic: picture
-  };
+  // Shortcuts to DOM Elements.
+  this.messageList = document.getElementById('messages');
+  this.messageForm = document.getElementById('message-form');
+  this.messageInput = document.getElementById('message');
+  this.submitButton = document.getElementById('submit');
+  this.submitImageButton = document.getElementById('submitImage');
+  this.imageForm = document.getElementById('image-form');
+  this.mediaCapture = document.getElementById('mediaCapture');
+  this.userPic = document.getElementById('user-pic');
+  this.userName = document.getElementById('user-name');
+  this.signInButton = document.getElementById('sign-in');
+  this.signOutButton = document.getElementById('sign-out');
+  this.signInSnackbar = document.getElementById('must-signin-snackbar');
 
-  // Get a key for a new Post.
-  var newPostKey = firebase.database().ref().child('posts').push().key;
+  // Saves message on form submit.
+  this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
+  this.signOutButton.addEventListener('click', this.signOut.bind(this));
+  this.signInButton.addEventListener('click', this.signIn.bind(this));
 
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  var updates = {};
-  updates['/posts/' + newPostKey] = postData;
-  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+  // Toggle for the button.
+  var buttonTogglingHandler = this.toggleButton.bind(this);
+  this.messageInput.addEventListener('keyup', buttonTogglingHandler);
+  this.messageInput.addEventListener('change', buttonTogglingHandler);
 
-  return firebase.database().ref().update(updates);
+  // Events for image upload.
+  this.submitImageButton.addEventListener('click', function() {
+    this.mediaCapture.click();
+  }.bind(this));
+  this.mediaCapture.addEventListener('change', this.saveImageMessage.bind(this));
+
+  this.initFirebase();
 }
-// [END write_fan_out]
 
-/**
- * Star/unstar post.
- */
-// [START post_stars_transaction]
-function toggleStar(postRef, uid) {
-  postRef.transaction(function(post) {
-    if (post) {
-      if (post.stars && post.stars[uid]) {
-        post.starCount--;
-        post.stars[uid] = null;
-      } else {
-        post.starCount++;
-        if (!post.stars) {
-          post.stars = {};
-        }
-        post.stars[uid] = true;
-      }
-    }
-    return post;
-  });
-}
-// [END post_stars_transaction]
+// Sets up shortcuts to Firebase features and initiate firebase auth.
+FriendlyChat.prototype.initFirebase = function() {
+  // Shortcuts to Firebase SDK features.
+  this.auth = firebase.auth();
+  this.database = firebase.database();
+  this.storage = firebase.storage();
+  // Initiates Firebase auth and listen to auth state changes.
+  this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+};
 
-/**
- * Creates a post element.
- */
-function createPostElement(postId, title, text, author, authorId, authorPic) {
-  var uid = firebase.auth().currentUser.uid;
+// Loads chat messages history and listens for upcoming ones.
+FriendlyChat.prototype.loadMessages = function() {
+  // Reference to the /messages/ database path.
+  this.messagesRef = this.database.ref('messages');
+  // Make sure we remove all previous listeners.
+  this.messagesRef.off();
 
-  var html =
-      '<div class="post post-' + postId + ' mdl-cell mdl-cell--12-col ' +
-                  'mdl-cell--6-col-tablet mdl-cell--4-col-desktop mdl-grid mdl-grid--no-spacing">' +
-        '<div class="mdl-card mdl-shadow--2dp">' +
-          '<div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">' +
-            '<h4 class="mdl-card__title-text"></h4>' +
-          '</div>' +
-          '<div class="header">' +
-            '<div>' +
-              '<div class="avatar"></div>' +
-              '<div class="username mdl-color-text--black"></div>' +
-            '</div>' +
-          '</div>' +
-          '<span class="star">' +
-            '<div class="not-starred material-icons">star_border</div>' +
-            '<div class="starred material-icons">star</div>' +
-            '<div class="star-count">0</div>' +
-          '</span>' +
-          '<div class="text"></div>' +
-          '<div class="comments-container"></div>' +
-          '<form class="add-comment" action="#">' +
-            '<div class="mdl-textfield mdl-js-textfield">' +
-              '<input class="mdl-textfield__input new-comment" type="text">' +
-              '<label class="mdl-textfield__label">Comment...</label>' +
-            '</div>' +
-          '</form>' +
-        '</div>' +
-      '</div>';
+  // Loads the last 12 messages and listen for new ones.
+  var setMessage = function(data) {
+    var val = data.val();
+    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+  }.bind(this);
+  this.messagesRef.limitToLast(12).on('child_added', setMessage);
+  this.messagesRef.limitToLast(12).on('child_changed', setMessage);
+};
 
-  // Create the DOM element from the HTML.
-  var div = document.createElement('div');
-  div.innerHTML = html;
-  var postElement = div.firstChild;
-  if (componentHandler) {
-    componentHandler.upgradeElements(postElement.getElementsByClassName('mdl-textfield')[0]);
+// Saves a new message on the Firebase DB.
+FriendlyChat.prototype.saveMessage = function(e) {
+  e.preventDefault();
+  // Check that the user entered a message and is signed in.
+  if (this.messageInput.value && this.checkSignedInWithMessage()) {
+    var currentUser = this.auth.currentUser;
+    // Add a new message entry to the Firebase Database.
+    this.messagesRef.push({
+      name: currentUser.displayName,
+      text: this.messageInput.value,
+      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
+    }).then(function() {
+      // Clear message text field and SEND button state.
+      FriendlyChat.resetMaterialTextfield(this.messageInput);
+      this.toggleButton();
+    }.bind(this)).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });
   }
+};
 
-  var addCommentForm = postElement.getElementsByClassName('add-comment')[0];
-  var commentInput = postElement.getElementsByClassName('new-comment')[0];
-  var star = postElement.getElementsByClassName('starred')[0];
-  var unStar = postElement.getElementsByClassName('not-starred')[0];
-
-  // Set values.
-  postElement.getElementsByClassName('text')[0].innerText = text;
-  postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = title;
-  postElement.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
-  postElement.getElementsByClassName('avatar')[0].style.backgroundImage = 'url("' +
-      (authorPic || './silhouette.jpg') + '")';
-
-  // Listen for comments.
-  // [START child_event_listener_recycler]
-  var commentsRef = firebase.database().ref('post-comments/' + postId);
-  commentsRef.on('child_added', function(data) {
-    addCommentElement(postElement, data.key, data.val().text, data.val().author);
-  });
-
-  commentsRef.on('child_changed', function(data) {
-    setCommentValues(postElement, data.key, data.val().text, data.val().author);
-  });
-
-  commentsRef.on('child_removed', function(data) {
-    deleteComment(postElement, data.key);
-  });
-  // [END child_event_listener_recycler]
-
-  // Listen for likes counts.
-  // [START post_value_event_listener]
-  var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
-  starCountRef.on('value', function(snapshot) {
-    updateStarCount(postElement, snapshot.val());
-  });
-  // [END post_value_event_listener]
-
-  // Listen for the starred status.
-  var starredStatusRef = firebase.database().ref('posts/' + postId + '/stars/' + uid)
-  starredStatusRef.on('value', function(snapshot) {
-    updateStarredByCurrentUser(postElement, snapshot.val());
-  });
-
-  // Keep track of all Firebase reference on which we are listening.
-  listeningFirebaseRefs.push(commentsRef);
-  listeningFirebaseRefs.push(starCountRef);
-  listeningFirebaseRefs.push(starredStatusRef);
-
-  // Create new comment.
-  addCommentForm.onsubmit = function(e) {
-    e.preventDefault();
-    createNewComment(postId, firebase.auth().currentUser.displayName, uid, commentInput.value);
-    commentInput.value = '';
-    commentInput.parentElement.MaterialTextfield.boundUpdateClassesHandler();
-  };
-
-  // Bind starring action.
-  var onStarClicked = function() {
-    var globalPostRef = firebase.database().ref('/posts/' + postId);
-    var userPostRef = firebase.database().ref('/user-posts/' + authorId + '/' + postId);
-    toggleStar(globalPostRef, uid);
-    toggleStar(userPostRef, uid);
-  };
-  unStar.onclick = onStarClicked;
-  star.onclick = onStarClicked;
-
-  return postElement;
-}
-
-/**
- * Writes a new comment for the given post.
- */
-function createNewComment(postId, username, uid, text) {
-  firebase.database().ref('post-comments/' + postId).push({
-    text: text,
-    author: username,
-    uid: uid
-  });
-}
-
-/**
- * Updates the starred status of the post.
- */
-function updateStarredByCurrentUser(postElement, starred) {
-  if (starred) {
-    postElement.getElementsByClassName('starred')[0].style.display = 'inline-block';
-    postElement.getElementsByClassName('not-starred')[0].style.display = 'none';
+// Sets the URL of the given img element with the URL of the image stored in Firebase Storage.
+FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
+  // If the image is a Firebase Storage URI we fetch the URL.
+  if (imageUri.startsWith('gs://')) {
+    imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
+    this.storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
+      imgElement.src = metadata.downloadURLs[0];
+    });
   } else {
-    postElement.getElementsByClassName('starred')[0].style.display = 'none';
-    postElement.getElementsByClassName('not-starred')[0].style.display = 'inline-block';
+    imgElement.src = imageUri;
   }
-}
+};
 
-/**
- * Updates the number of stars displayed for a post.
- */
-function updateStarCount(postElement, nbStart) {
-  postElement.getElementsByClassName('star-count')[0].innerText = nbStart;
-}
+// Saves a new message containing an image URI in Firebase.
+// This first saves the image in Firebase storage.
+FriendlyChat.prototype.saveImageMessage = function(event) {
+  var file = event.target.files[0];
 
-/**
- * Creates a comment element and adds it to the given postElement.
- */
-function addCommentElement(postElement, id, text, author) {
-  var comment = document.createElement('div');
-  comment.classList.add('comment-' + id);
-  comment.innerHTML = '<span class="username"></span><span class="comment"></span>';
-  comment.getElementsByClassName('comment')[0].innerText = text;
-  comment.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
+  // Clear the selection in the file picker input.
+  this.imageForm.reset();
 
-  var commentsContainer = postElement.getElementsByClassName('comments-container')[0];
-  commentsContainer.appendChild(comment);
-}
-
-/**
- * Sets the comment's values in the given postElement.
- */
-function setCommentValues(postElement, id, text, author) {
-  var comment = postElement.getElementsByClassName('comment-' + id)[0];
-  comment.getElementsByClassName('comment')[0].innerText = text;
-  comment.getElementsByClassName('fp-username')[0].innerText = author;
-}
-
-/**
- * Deletes the comment of the given ID in the given postElement.
- */
-function deleteComment(postElement, id) {
-  var comment = postElement.getElementsByClassName('comment-' + id)[0];
-  comment.parentElement.removeChild(comment);
-}
-
-/**
- * Starts listening for new posts and populates posts lists.
- */
-function startDatabaseQueries() {
-  // [START my_top_posts_query]
-  var myUserId = firebase.auth().currentUser.uid;
-  var topUserPostsRef = firebase.database().ref('user-posts/' + myUserId).orderByChild('starCount');
-  // [END my_top_posts_query]
-  // [START recent_posts_query]
-  var recentPostsRef = firebase.database().ref('posts').limitToLast(100);
-  // [END recent_posts_query]
-  var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
-
-  var fetchPosts = function(postsRef, sectionElement) {
-    postsRef.on('child_added', function(data) {
-      var author = data.val().author || 'Anonymous';
-      var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-      containerElement.insertBefore(
-          createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
-          containerElement.firstChild);
-    });
-    postsRef.on('child_changed', function(data) {	
-		var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-		var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
-		postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
-		postElement.getElementsByClassName('username')[0].innerText = data.val().author;
-		postElement.getElementsByClassName('text')[0].innerText = data.val().body;
-		postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
-    });
-    postsRef.on('child_removed', function(data) {
-		var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-		var post = containerElement.getElementsByClassName('post-' + data.key)[0];
-	    post.parentElement.removeChild(post);
-    });
-  };
-
-  // Fetching and displaying all posts of each sections.
-  fetchPosts(topUserPostsRef, topUserPostsSection);
-  fetchPosts(recentPostsRef, recentPostsSection);
-  fetchPosts(userPostsRef, userPostsSection);
-
-  // Keep track of all Firebase refs we are listening to.
-  listeningFirebaseRefs.push(topUserPostsRef);
-  listeningFirebaseRefs.push(recentPostsRef);
-  listeningFirebaseRefs.push(userPostsRef);
-}
-
-/**
- * Writes the user's data to the database.
- */
-// [START basic_write]
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}
-// [END basic_write]
-
-/**
- * Cleanups the UI and removes all Firebase listeners.
- */
-function cleanupUi() {
-  // Remove all previously displayed posts.
-  topUserPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  recentPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  userPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-
-  // Stop all currently listening Firebase listeners.
-  listeningFirebaseRefs.forEach(function(ref) {
-    ref.off();
-  });
-  listeningFirebaseRefs = [];
-}
-
-/**
- * The ID of the currently signed-in User. We keep track of this to detect Auth state change events that are just
- * programmatic token refresh but not a User status change.
- */
-var currentUID;
-
-/**
- * Triggers every time there is a change in the Firebase auth state (i.e. user signed-in or user signed out).
- */
-function onAuthStateChanged(user) {
-  // We ignore token refresh events.
-  if (user && currentUID === user.uid) {
+  // Check if the file is an image.
+  if (!file.type.match('image.*')) {
+    var data = {
+      message: 'You can only share images',
+      timeout: 2000
+    };
+    this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
     return;
   }
 
-  cleanupUi();
-  if (user) {
-    currentUID = user.uid;
-    splashPage.style.display = 'none';
-    writeUserData(user.uid, user.displayName, user.email, user.photoURL);
-    startDatabaseQueries();
+  // Check if the user is signed-in
+  if (this.checkSignedInWithMessage()) {
+
+    // We add a message with a loading icon that will get updated with the shared image.
+    var currentUser = this.auth.currentUser;
+    this.messagesRef.push({
+      name: currentUser.displayName,
+      imageUrl: FriendlyChat.LOADING_IMAGE_URL,
+      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
+    }).then(function(data) {
+      // Upload the image to Firebase Storage.
+      this.storage.ref(currentUser.uid + '/' + Date.now() + '/' + file.name)
+          .put(file, {contentType: file.type})
+          .then(function(snapshot) {
+            // Get the file's Storage URI and update the chat message placeholder.
+            var filePath = snapshot.metadata.fullPath;
+            data.update({imageUrl: this.storage.ref(filePath).toString()});
+          }.bind(this)).catch(function(error) {
+            console.error('There was an error uploading a file to Firebase Storage:', error);
+          });
+    }.bind(this));
+  }
+};
+
+// Signs-in Friendly Chat.
+FriendlyChat.prototype.signIn = function() {
+  // Sign in Firebase using popup auth and Google as the identity provider.
+  var provider = new firebase.auth.GoogleAuthProvider();
+  this.auth.signInWithPopup(provider);
+};
+
+// Signs-out of Friendly Chat.
+FriendlyChat.prototype.signOut = function() {
+  // Sign out of Firebase.
+  this.auth.signOut();
+};
+
+// Triggers when the auth state change for instance when the user signs-in or signs-out.
+FriendlyChat.prototype.onAuthStateChanged = function(user) {
+  if (user) { // User is signed in!
+    // Get profile pic and user's name from the Firebase user object.
+    var profilePicUrl = user.photoURL;
+    var userName = user.displayName;
+
+    // Set the user's profile pic and name.
+    this.userPic.style.backgroundImage = 'url(' + (profilePicUrl || '/images/profile_placeholder.png') + ')';
+    this.userName.textContent = userName;
+
+    // Show user's profile and sign-out button.
+    this.userName.removeAttribute('hidden');
+    this.userPic.removeAttribute('hidden');
+    this.signOutButton.removeAttribute('hidden');
+
+    // Hide sign-in button.
+    this.signInButton.setAttribute('hidden', 'true');
+
+    // We load currently existing chant messages.
+    this.loadMessages();
+  } else { // User is signed out!
+    // Hide user's profile and sign-out button.
+    this.userName.setAttribute('hidden', 'true');
+    this.userPic.setAttribute('hidden', 'true');
+    this.signOutButton.setAttribute('hidden', 'true');
+
+    // Show sign-in button.
+    this.signInButton.removeAttribute('hidden');
+  }
+};
+
+// Returns true if user is signed-in. Otherwise false and displays a message.
+FriendlyChat.prototype.checkSignedInWithMessage = function() {
+  // Return true if the user is signed in Firebase
+  if (this.auth.currentUser) {
+    return true;
+  }
+
+  // Display a message to the user using a Toast.
+  var data = {
+    message: 'You must sign-in first',
+    timeout: 2000
+  };
+  this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
+  return false;
+};
+
+// Resets the given MaterialTextField.
+FriendlyChat.resetMaterialTextfield = function(element) {
+  element.value = '';
+  element.parentNode.MaterialTextfield.boundUpdateClassesHandler();
+};
+
+// Template for messages.
+FriendlyChat.MESSAGE_TEMPLATE =
+    '<div class="message-container">' +
+      '<div class="spacing"><div class="pic"></div></div>' +
+      '<div class="message"></div>' +
+      '<div class="name"></div>' +
+    '</div>';
+
+// A loading image URL.
+FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
+
+// Displays a Message in the UI.
+FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+  var div = document.getElementById(key);
+  // If an element for that message does not exists yet we create it.
+  if (!div) {
+    var container = document.createElement('div');
+    container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+    div = container.firstChild;
+    div.setAttribute('id', key);
+    this.messageList.appendChild(div);
+  }
+  if (picUrl) {
+    div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+  }
+  div.querySelector('.name').textContent = name;
+  var messageElement = div.querySelector('.message');
+  if (text) { // If the message is text.
+    messageElement.textContent = text;
+    // Replace all line breaks by <br>.
+    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+  } else if (imageUri) { // If the message is an image.
+    var image = document.createElement('img');
+    image.addEventListener('load', function() {
+      this.messageList.scrollTop = this.messageList.scrollHeight;
+    }.bind(this));
+    this.setImageUrl(imageUri, image);
+    messageElement.innerHTML = '';
+    messageElement.appendChild(image);
+  }
+  // Show the card fading-in and scroll to view the new message.
+  setTimeout(function() {div.classList.add('visible')}, 1);
+  this.messageList.scrollTop = this.messageList.scrollHeight;
+  this.messageInput.focus();
+};
+
+// Enables or disables the submit button depending on the values of the input
+// fields.
+FriendlyChat.prototype.toggleButton = function() {
+  if (this.messageInput.value) {
+    this.submitButton.removeAttribute('disabled');
   } else {
-    // Set currentUID to null.
-    currentUID = null;
-    // Display the splash page where you can sign-in.
-    splashPage.style.display = '';
+    this.submitButton.setAttribute('disabled', 'true');
   }
-}
+};
 
-/**
- * Creates a new post for the current user.
- */
-function newPostForCurrentUser(title, text) {
-  // [START single_value_read]
-  var userId = firebase.auth().currentUser.uid;
-  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-    var username = snapshot.val().username;
-    // [START_EXCLUDE]
-    return writeNewPost(firebase.auth().currentUser.uid, username,
-        firebase.auth().currentUser.photoURL,
-        title, text);
-    // [END_EXCLUDE]
-  });
-  // [END single_value_read]
-}
-
-/**
- * Displays the given section element and changes styling of the given button.
- */
-function showSection(sectionElement, buttonElement) {
-  recentPostsSection.style.display = 'none';
-  userPostsSection.style.display = 'none';
-  topUserPostsSection.style.display = 'none';
-  addPost.style.display = 'none';
-  recentMenuButton.classList.remove('is-active');
-  myPostsMenuButton.classList.remove('is-active');
-  myTopPostsMenuButton.classList.remove('is-active');
-
-  if (sectionElement) {
-    sectionElement.style.display = 'block';
+// Checks that the Firebase SDK has been correctly setup and configured.
+FriendlyChat.prototype.checkSetup = function() {
+  if (!window.firebase || !(firebase.app instanceof Function) || !window.config) {
+    window.alert('You have not configured and imported the Firebase SDK. ' +
+        'Make sure you go through the codelab setup instructions.');
+  } else if (config.storageBucket === '') {
+    window.alert('Your Firebase Storage bucket has not been enabled. Sorry about that. This is ' +
+        'actually a Firebase bug that occurs rarely. ' +
+        'Please go and re-generate the Firebase initialisation snippet (step 4 of the codelab) ' +
+        'and make sure the storageBucket attribute is not empty. ' +
+        'You may also need to visit the Storage tab and paste the name of your bucket which is ' +
+        'displayed there.');
   }
-  if (buttonElement) {
-    buttonElement.classList.add('is-active');
-  }
-}
+};
 
-// Bindings on load.
-window.addEventListener('load', function() {
-  // Bind Sign in button.
-  signInButton.addEventListener('click', function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
-  });
-
-  // Bind Sign out button.
-  signOutButton.addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-
-  // Listen for auth state changes
-  firebase.auth().onAuthStateChanged(onAuthStateChanged);
-
-  // Saves message on form submit.
-  messageForm.onsubmit = function(e) {
-    e.preventDefault();
-    var text = messageInput.value;
-    var title = titleInput.value;
-    if (text && title) {
-      newPostForCurrentUser(title, text).then(function() {
-        myPostsMenuButton.click();
-      });
-      messageInput.value = '';
-      titleInput.value = '';
-    }
-  };
-
-  // Bind menu buttons.
-  recentMenuButton.onclick = function() {
-    showSection(recentPostsSection, recentMenuButton);
-  };
-  myPostsMenuButton.onclick = function() {
-    showSection(userPostsSection, myPostsMenuButton);
-  };
-  myTopPostsMenuButton.onclick = function() {
-    showSection(topUserPostsSection, myTopPostsMenuButton);
-  };
-  addButton.onclick = function() {
-    showSection(addPost);
-    messageInput.value = '';
-    titleInput.value = '';
-  };
-  recentMenuButton.onclick();
-}, false);
+window.onload = function() {
+  window.friendlyChat = new FriendlyChat();
+};

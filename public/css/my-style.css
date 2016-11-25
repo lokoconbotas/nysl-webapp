@@ -90,3 +90,16 @@ iframe {
 .titulo-centrado {
     text-align: center;
 }
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-left {
+    border-right: 1px solid blue;
+}
+
+
+
