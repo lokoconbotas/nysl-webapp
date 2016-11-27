@@ -7,7 +7,6 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <title>My App</title>
         <!-- Path to Framework7 Library CSS-->
-        <link rel="stylesheet" href="css/framework7.ios.min.css">
 
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,6 +16,7 @@
         <!-- Path to your custom app styles-->
         <link rel="stylesheet" href="css/my-app.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/framework7.ios.min.css">
         <link rel="stylesheet" href="css/my-style.css">
 
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
@@ -175,22 +175,36 @@
                     </div>
                     <!-- Chat Page-->
                     <div data-page="chat" class="page cached">
-                        <div class="page-content">
 
-                                <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+                        <div class="barra-mensajes toolbar messagebar">
+                            <form id="message-form" action="#">
+                                <div id="message-form" action="#" class="toolbar messagebar">
+                                    <div class="toolbar-inner">
+                                        <textarea id="message" placeholder="Message"></textarea><button id="submit" disabled type="submit" href="#" class="button active button-round">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <div class="page-content messages-content">
+
+                            <div class="messages">
+                                <div class="demo-layout1 mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
                                     <!-- Header section containing logo -->
                                     <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
                                         <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-                                            
+
                                             <div id="user-container">
                                                 <div hidden id="user-pic"></div>
                                                 <div hidden id="user-name"></div>
-                                                <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                                <button hidden name="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
                                                     Sign-out
                                                 </button>
-                                                <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-                                                    <i class="material-icons">account_circle</i>Sign-in with Google
+                                                <button hidden name="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                                    <i class="material-icons">account_circle</i>Log-in
                                                 </button>
                                             </div>
                                         </div>
@@ -205,19 +219,26 @@
                                                     <div id="messages">
                                                         <span id="message-filler"></span>
                                                     </div>
-                                                    <form id="message-form" action="#">
-                                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                            <input class="mdl-textfield__input" type="text" id="message">
-                                                            <label class="mdl-textfield__label" for="message">Message...</label>
-                                                        </div>
-                                                        <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                                                            Send
-                                                        </button>
-                                                    </form>
+
+
+
+                                                    <!--
+<form id="message-form" action="#">
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+<input class="mdl-textfield__input" type="text" id="message">
+<label class="mdl-textfield__label" for="message">Write something...</label>
+</div>
+<button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+Send
+</button>
+</form>
+-->
+
+
                                                     <form id="image-form" action="#">
-                                                        <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+                                                        <input id="mediaCapture" type="file" accept="image/*" capture="camera">
                                                         <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-                                                            <i class="material-icons">image</i>
+                                                            <i class="material-icons">camera</i>
                                                         </button>
                                                     </form>
                                                 </div>
@@ -230,7 +251,7 @@
 
                                         </div>
                                     </main>
-                                </div> 
+                                </div> </div>
 
                         </div>
                     </div>
@@ -367,7 +388,13 @@
                 </div>
                 <!-- Bottom Toolbar-->
                 <div class="toolbar">
-                    <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+                    <button  id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                        <a class="link">Sign-Out</a>
+                    </button>
+                    <button  id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                        <a class="link">Sign-In</a>
+                    </button>
+                    <!--                    <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>-->
                 </div>
             </div>
         </div>

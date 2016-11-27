@@ -101,5 +101,38 @@ iframe {
     border-right: 1px solid blue;
 }
 
+.demo-layout1 {
+    position: fixed;
+    height: 90%;
+}
 
 
+
+.messagebar {
+    margin-bottom: 43px;
+}
+
+.messagebar .toolbar-inner {
+    background: white;
+    
+}
+
+.messagebar .toolbar-inner button {
+    top: -8px;
+    height: 35px;
+}
+
+.link {
+    color: #0093ff;
+}
+
+.message-received .message-text {
+    border-radius:16px 16px 16px 0;
+    -webkit-mask-box-image:url("data:image/svg+xml;charset=utf-8,<svg height='35' viewBox='0 0 96 70' width='48' xmlns='http://www.w3.org/2000/svg'><path d='m96 35c1 7-5 37-42 35-37 2-43-28-42-35-1-7 5-37 42-35 37-2 43 28 42 35z'/><path d='m0 70c6-2 12-10 12-19v-16l14 27s-8 8-26 8z'/></svg>") 50% 42% 46% 56%;
+    background-color: #0093ff;
+    color: white;
+}
+
+.mdl-snackbar {
+    bottom: 120px;
+}

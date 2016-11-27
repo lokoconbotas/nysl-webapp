@@ -224,9 +224,9 @@ FriendlyChat.resetMaterialTextfield = function(element) {
 // Template for messages.
 FriendlyChat.MESSAGE_TEMPLATE =
     '<div class="message-container">' +
+      '<div class="message-name"></div>' +
       '<div class="spacing"><div class="pic"></div></div>' +
-      '<div class="message"></div>' +
-      '<div class="name"></div>' +
+      '<div class="message message-received"><div class="message-text"></div>' +
     '</div>';
 
 // A loading image URL.
@@ -246,8 +246,8 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
   if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
-  div.querySelector('.name').textContent = name;
-  var messageElement = div.querySelector('.message');
+  div.querySelector('.message-name').textContent = name;
+  var messageElement = div.querySelector('.message-text');
   if (text) { // If the message is text.
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
