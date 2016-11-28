@@ -48,6 +48,7 @@ caption {
 
 .escudos2 {
     height: 8em;
+    margin: 10px;
 }
 
 .escudos-mini {
@@ -77,7 +78,7 @@ iframe {
 }
 
 .home-logo {
-    height: 10em;
+    max-height: 10em;
     filter: drop-shadow(0px 10px 5px black)
 }
 
@@ -127,12 +128,74 @@ iframe {
 }
 
 .message-received .message-text {
+    display: flex;
+    align-items: center;
     border-radius:16px 16px 16px 0;
     -webkit-mask-box-image:url("data:image/svg+xml;charset=utf-8,<svg height='35' viewBox='0 0 96 70' width='48' xmlns='http://www.w3.org/2000/svg'><path d='m96 35c1 7-5 37-42 35-37 2-43-28-42-35-1-7 5-37 42-35 37-2 43 28 42 35z'/><path d='m0 70c6-2 12-10 12-19v-16l14 27s-8 8-26 8z'/></svg>") 50% 42% 46% 56%;
     background-color: #0093ff;
     color: white;
+    font-size: 10px;
 }
 
 .mdl-snackbar {
-    bottom: 120px;
+    bottom: 110px;
+}
+.splash {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ebebeb;
+    z-index: 2;
+    color: black;
+    text-align: center;
+}
+
+#login-form {
+    width: 60%;
+}
+
+#sign-in {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.mensaje-error {
+    margin-left: 50px;
+    display: flex;
+    text-align: center;
+    font-size: 15px;
+    line-height: 80px;
+    align-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    height: 80px;
+    background: red;
+    color: white;
+    z-index: 5;
+}
+    
+.center-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.imagen-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid grey;
+    background: url(../media/estadio/estadio4.png);
+    background-size: cover;
+    background-position: center;
+    height: 30vh;
+}
+
+#team-logo {
+    
 }
